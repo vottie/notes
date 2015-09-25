@@ -1,14 +1,22 @@
 header=<html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1">
 stylesheet=<link href="../css/bootstrap.min.css" rel="stylesheet">
+
 footer=<script src="../js/bootstrap.min.js"></script></body></html>
+
 idx_header=<body><header style="background-color:#ffffff;" class="container"><h1>boltech21.net</h1></header><section class="container">
 idx_footer=</section><hr/><footer style="background-color:#ffffff;" class="container">Copyright (C) 2014- boltech21.net. All Rights Reserved.</footer>
+
+server_path=/usr/share/nginx/html
+domain_name=http://boltech21.net
 uri_base=/notes/
 suffix=.md
+copyright=Copyright (C) 2014- boltech21.net. All Rights Reserved.
+bg_color=#ffffff
+
 md_header=<header style="background-color:
 md_footer=<p><a href="
-server_path=/usr/share/nginx/html
+
+
 link_tag=<p><a href="./%s">%s</a></p>
-domain_name=http://boltech21.net
-bg_color=#ffffff
-copyright=Copyright (C) 2014- boltech21.net. All Rights Reserved.
+
+

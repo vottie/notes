@@ -23,8 +23,6 @@ int Notes::printHeader(string &title)
 
 int Notes::printBody(string &note)
 {
-    printf("<body>");
-    //printf("%s\n", note.c_str());
     Parser parser;
     parser.parse(note);
     parser.display();

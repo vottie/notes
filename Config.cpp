@@ -27,12 +27,21 @@ int Config::load()
     }
 
     while (getline(ifs, str)) {
+        // skip empty line
+        if (str.empty()) {
+            continue;
+	}
+
         std::size_t found = str.find_first_of('=');        
         if (found == std::string::npos) {
-            printf("Error\n");
+            printf("Configuration format Error\n");
             rtncode = -1;
             break;
         }
+
+        // sanitize
+        str = erase_space(str);
+
         string key = string(str.c_str(), found);
         // for debug
         // printf("key=%s\n", key.c_str());
@@ -113,17 +122,19 @@ string Config::getDomainName()
 
 string Config::getMdHeader()
 {
-    string md_header(config["bg_color"]);
+    string md_header("<body><header style=\"background-color:");
+    md_header.append(config["bg_color"]);
     md_header.append(";\" class=\"container\"><h1>");
     md_header.append(config["domain_name"]);
-    md_header.append("</h1></header><section class=\"container\"");
+    md_header.append("</h1></header><section class=\"container\">");
     return md_header;
 }
 
 string Config::getMdFooter()
 {
-    string md_footer(config["domain_name"]);
-    md_footer.append("back</a></p></section><hr/><footer style=\"background-color:");
+    string md_footer("<a href=\"");
+    md_footer.append(config["domain_name"]);
+    md_footer.append("\">back</a></p></section><hr/><footer style=\"background-color:");
     md_footer.append(config["bg_color"]);
     md_footer.append(";\" class=\"container\">");
     md_footer.append(config["copyright"]);
