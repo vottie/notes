@@ -39,14 +39,13 @@ int Config::load()
             break;
         }
 
-        // sanitize
-        str = erase_space(str);
-
-        string key = string(str.c_str(), found);
+        string key = removeSpace(str, found, FIND_KEY);
+        //string key = string(line.c_str(), found);
         // for debug
         // printf("key=%s\n", key.c_str());
 
-        string val = str.substr(found + 1);
+        string val = removeSpace(str, found, FIND_VAL);
+        //string val = line.substr(found + 1);
         // for debug
         // printf("val=%s\n", val.c_str());
 
@@ -69,7 +68,6 @@ void Config::show()
 }
 
 
-// private
 string Config::getHeader()
 {
     return config["header"]; 
@@ -125,7 +123,8 @@ string Config::getMdHeader()
     string md_header("<body><header style=\"background-color:");
     md_header.append(config["bg_color"]);
     md_header.append(";\" class=\"container\"><h1>");
-    md_header.append(config["domain_name"]);
+    // remove "http://"
+    md_header.append((config["domain_name"]).substr(7));
     md_header.append("</h1></header><section class=\"container\">");
     return md_header;
 }
@@ -142,3 +141,27 @@ string Config::getMdFooter()
     return md_footer;
 }
 
+// private method
+string Config::removeSpace(string &str, size_t pos, int flag)
+{
+    string line;
+
+    if (flag == FIND_KEY) {
+        for(int i = pos - 1; i <= 0; i--) {
+            if(str[i] != ' ') {
+                //printf("DBG key %s pos %d\n", str.c_str(), i);
+                line = str.substr(0, i);
+                break;
+            }
+        }
+    } else {
+        for(int i = pos + 1; i <= (int)str.size(); i++) {
+            if(str[i] != ' ') {
+                //printf("DBG val %s pos %d\n", str.c_str(), i);
+                line = str.substr(i);
+                break;
+            }
+        }
+    }
+    return line;
+}

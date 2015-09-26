@@ -7,6 +7,9 @@
 namespace vottie {
 namespace notes {
 
+#define FIND_KEY 0
+#define FIND_VAL 1
+
 /**
  * @class Config
  */
@@ -41,6 +44,8 @@ private:
     static Config *instance;
 
     std::map<std::string, std::string> config;
+
+    std::string removeSpace(std::string &str, size_t pos, int flag);
 };
 
 }
