@@ -31,7 +31,9 @@ int Notes::printBody(string &note)
 
 int Notes::printFooter()
 {
-    printf("%s", Config::getInstance()->getFooter().c_str());
+    Config *config = Config::getInstance();
+    printf("%s", config->getAnalytics().c_str());
+    printf("%s", config->getFooter().c_str());
     return 0;
 }
 
@@ -91,6 +93,9 @@ int main(int argc, char* argv[]) {
     // prepare config
     Config *config = Config::getInstance();
     config->load();
+
+    // debug print
+    config->show();
 
     while (FCGI_Accept() >= 0) {
         request_uri = getenv("REQUEST_URI");

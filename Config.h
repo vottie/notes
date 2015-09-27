@@ -33,6 +33,8 @@ public:
     std::string getDomainName();
     std::string getMdHeader();
     std::string getMdFooter();
+    std::string getAnalytics();
+    std::string getAdsense();
 
     // for debug
     void show();

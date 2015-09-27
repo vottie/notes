@@ -30,7 +30,7 @@ int Config::load()
         // skip empty line
         if (str.empty()) {
             continue;
-	}
+        }
 
         std::size_t found = str.find_first_of('=');        
         if (found == std::string::npos) {
@@ -40,12 +40,12 @@ int Config::load()
         }
 
         string key = removeSpace(str, found, FIND_KEY);
-        //string key = string(line.c_str(), found);
+        //string key = string(str.c_str(), found);
         // for debug
         // printf("key=%s\n", key.c_str());
 
         string val = removeSpace(str, found, FIND_VAL);
-        //string val = line.substr(found + 1);
+        //string val = str.substr(found + 1);
         // for debug
         // printf("val=%s\n", val.c_str());
 
@@ -61,7 +61,7 @@ void Config::show()
 {
     for (const auto &pair : config) {
         cout << pair.first
-             << '='
+             << " = "
              << pair.second
              << '\n';
     }
@@ -141,24 +141,35 @@ string Config::getMdFooter()
     return md_footer;
 }
 
+string Config::getAnalytics()
+{
+    return config["analytics"];
+}
+
+
+string Config::getAdsense()
+{
+    return config["adsense"];
+}
+
 // private method
 string Config::removeSpace(string &str, size_t pos, int flag)
 {
     string line;
 
     if (flag == FIND_KEY) {
-        for(int i = pos - 1; i <= 0; i--) {
+        for(int i = pos - 1; i >= 0; i--) {
             if(str[i] != ' ') {
-                //printf("DBG key %s pos %d\n", str.c_str(), i);
-                line = str.substr(0, i);
+                line = str.substr(0, i + 1);
+	        // printf("DBG key %s pos %d\n", line.c_str(), i);
                 break;
             }
         }
     } else {
         for(int i = pos + 1; i <= (int)str.size(); i++) {
             if(str[i] != ' ') {
-                //printf("DBG val %s pos %d\n", str.c_str(), i);
                 line = str.substr(i);
+	        // printf("DBG val %s pos %d\n", line.c_str(), i);
                 break;
             }
         }

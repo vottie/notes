@@ -156,6 +156,7 @@ int Parser::parse(string &note) {
     const boost::posix_time::ptime time = boost::posix_time::from_time_t(last_update);
     //std::cout << time << std::endl;
 
+
     std::ifstream ifs(path.c_str());
     //  No Exist File is Error
     if (ifs.fail()) {
@@ -168,6 +169,7 @@ int Parser::parse(string &note) {
     output_str.append("last update: ");
     output_str.append(boost::posix_time::to_simple_string(time));
     output_str.append("\n");
+    output_str.append(Config::getInstance()->getAdsense().c_str());
     //   while EOF Read Line
     while (getline(ifs, line))
     {
